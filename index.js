@@ -29,8 +29,17 @@ async function run() {
     await client.connect();
 
 
+    const usersCollection = client.db("clickDB").collection("users");
     const classesCollection = client.db("clickDB").collection("classes");
     const cartCollection = client.db("clickDB").collection("carts");
+
+
+
+    app.post('/users', async(req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user)
+      res.send(result)
+    })
 
 
 
