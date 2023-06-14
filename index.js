@@ -130,6 +130,16 @@ async function run() {
     })
 
 
+    app.get('/users/instructor', async(req, res) => {
+      try {
+        const query = {role: 'instructor'};
+        const result = await usersCollection.find(query).toArray();
+        res.send(result);
+      }catch(error){
+        res.send(error)
+      }
+    })
+
     app.patch('/users/admin/:id', async(req, res)=> {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id)};
@@ -158,6 +168,12 @@ async function run() {
 
     app.get('/classes', async(req, res)=> {
         const result = await classesCollection.find().toArray();
+        res.send(result);
+    })
+
+    app.post('/classes', async(req, res)=> {
+      const item = req.body;
+        const result = await classesCollection.insertOne(item);
         res.send(result);
     })
 
