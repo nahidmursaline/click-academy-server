@@ -33,6 +33,7 @@ async function run() {
 
     const usersCollection = client.db("clickDB").collection("users");
     const classesCollection = client.db("clickDB").collection("classes");
+    const myClassCollection = client.db("clickDB").collection("myClasses");
     const cartCollection = client.db("clickDB").collection("carts");
     const paymentCollection = client.db("clickDB").collection("payments");
 
@@ -161,6 +162,18 @@ async function run() {
         }
       }
       const result = await usersCollection.updateOne(filter, updateDoc);
+      res.send(result)
+    })
+
+    // my Class collection
+    app.get('/myclass', async(req, res)=>{
+      const result = await myClassCollection.find().toArray()
+      res.send(result)
+    })
+
+    app.post('/myclass', async(req, res)=>{
+      const item = req.body;
+      const result = await myClassCollection.insertOne(item);
       res.send(result)
     })
 
