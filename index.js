@@ -88,7 +88,7 @@ async function run() {
     }
 
 
-
+    // users 
 
     app.get('/users', verifyJWT, verifyAdmin, async(req, res)=> {
       const result = await usersCollection.find().toArray();
@@ -211,6 +211,8 @@ async function run() {
         res.send(result)
       
     })
+
+    // delete 
 
     app.delete('/carts/:id', async(req, res) => {
       const id = req.params.id;
